@@ -2,14 +2,11 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("native.cocoapods") version "2.1.10"
-    id("co.touchlab.skie") version "0.10.1"
 }
-
 kotlin {
 
     cocoapods {
@@ -23,12 +20,12 @@ kotlin {
         ios.deploymentTarget = "13.0"
         // Optional properties
         // Configure the Pod name here instead of changing the Gradle project name
-        name = "MyCocoaPod"
+        name = "MyCoreNetwork"
 
         framework {
             // Required properties
             // Framework name configuration. Use this property instead of deprecated 'frameworkName'
-            baseName = "MyFramework"
+            baseName = "MyCoreNetwork"
             // Optional properties
             // Specify the framework linking type. It's dynamic by default.
             isStatic = false
@@ -42,50 +39,39 @@ kotlin {
         xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
         xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
     }
-    androidTarget {
+    androidTarget(){
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach { iosTarget ->
-//        iosTarget.binaries.framework {
-//            baseName = "Shared"
-//            export(project(":shared:core-network"))
-//            isStatic = true
-//        }
-    }
-
-    
-    sourceSets {
+    )
+    sourceSets{
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
         }
     }
-//    skie {
-//        features {
-//            group {
-//                DefaultArgumentInterop.Enabled(true)
-//            }
-//        }
-//    }
 }
 
 android {
-    namespace = "com.jetbrains.greeting.shared"
+    namespace = "com.example.core_network"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+        consumerProguardFiles("consumer-rules.pro")
     }
 }
-//cd "$SRCROOT/.."
-//    ./gradlew :shared:embedAndSignAppleFrameworkForXcode
+
+dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}

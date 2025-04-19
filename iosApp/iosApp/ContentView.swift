@@ -1,11 +1,12 @@
 import SwiftUI
-import Shared
+import MyFramework
+import MyCoreNetwork
 
 struct ContentView: View {
     @State private var showContent = false
     var body: some View {
         VStack {
-            Button("Click me!") {
+            Button("Click \(getHttpCLientIos()) !") {
                 withAnimation {
                     showContent = !showContent
                 }
@@ -23,11 +24,25 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding()
+        .onAppear {
+//            print("SEEHERE \(Random().randomk1())")
+        }
     }
 }
-
+func getHttpCLientIos() -> String{
+//    return Random().random1()
+    return ""
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+func changeDirection(turn: Turn) {
+    switch turn {
+    case .left:
+        print("go left")
+    case .right:
+        print("go right")
     }
 }

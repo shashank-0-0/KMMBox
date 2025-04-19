@@ -8,3 +8,8 @@ class IOSPlatform: Platform {
 
 actual fun getPlatform(): Platform = IOSPlatform()
 actual val num: Int = 43
+
+fun accessCommonMainGreetingFunction(){
+    val greeting = Greeting()
+    greeting.greet()
+}

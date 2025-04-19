@@ -1,0 +1,21 @@
+PODS:
+  - MyCocoaPod (1.0)
+  - MyCoreNetwork (1.0)
+
+DEPENDENCIES:
+  - MyCocoaPod (from `/Users/shashankshetty/Downloads/GreetingKMP/shared`)
+  - MyCoreNetwork (from `/Users/shashankshetty/Downloads/GreetingKMP/core-network/MyCoreNetwork.podspec`)
+
+EXTERNAL SOURCES:
+  MyCocoaPod:
+    :path: "/Users/shashankshetty/Downloads/GreetingKMP/shared"
+  MyCoreNetwork:
+    :path: "/Users/shashankshetty/Downloads/GreetingKMP/core-network/MyCoreNetwork.podspec"
+
+SPEC CHECKSUMS:
+  MyCocoaPod: 1b4644f9ee3a3cd625a635152ea75266c7cea00e
+  MyCoreNetwork: 21df5a5262d72cf657e7bd71e66193bbd836ff49
+
+PODFILE CHECKSUM: e1d8c3bfc5e2e2ea2958696c19962f975f917a65
+
+COCOAPODS: 1.16.2

@@ -4,6 +4,8 @@ import MyCoreNetwork
 
 struct ContentView: View {
     @State private var showContent = false
+    @StateObject var viewModel = ContentsViewModel()
+    
     var body: some View {
         VStack {
             Button("Click \(getHttpCLientIos()) !") {

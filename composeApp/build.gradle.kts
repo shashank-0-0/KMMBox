@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -21,7 +22,10 @@ kotlin {
         
         androidMain.dependencies {
             implementation(compose.preview)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.jetbrains.kotlinx.serialization.json)
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -33,6 +37,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
+            implementation(projects.coreNetwork)
             implementation(libs.compottie)
             implementation(libs.compottie.network)
 
@@ -65,9 +70,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "twelveDataApiKey",
+            "\"${project.findProperty("twelveDataApiKey")}\""
+        )
+    }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    debugImplementation("com.github.chuckerteam.chucker:library:4.1.0")
     debugImplementation(compose.uiTooling)
+//    implementation(libs)
 }
 

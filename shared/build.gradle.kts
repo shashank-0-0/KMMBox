@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     kotlin("native.cocoapods") version "2.1.10"
     id("co.touchlab.skie") version "0.10.1"
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -64,6 +65,10 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.coreNetwork)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.2")
             // put your Multiplatform dependencies here
         }
     }

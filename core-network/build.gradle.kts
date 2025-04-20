@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("native.cocoapods") version "2.1.10"
+    alias(libs.plugins.kotlin.serialization)
 }
 kotlin {
 
@@ -52,6 +53,19 @@ kotlin {
     )
     sourceSets{
         commonMain.dependencies {
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.client.cio)
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.2")
+            implementation("io.ktor:ktor-client-logging:3.1.2")
+            implementation("io.ktor:ktor-client-content-negotiation:3.1.2")
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.2")
+        }
+        iosMain.dependencies {
+            implementation(libs.bundles.ktor.ios)
         }
     }
 }
@@ -64,14 +78,8 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         consumerProguardFiles("consumer-rules.pro")
     }
-}
-
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
